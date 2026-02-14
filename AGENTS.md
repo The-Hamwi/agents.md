@@ -27,7 +27,17 @@ If you add or update dependencies remember to:
 * Co-locate component-specific styles in the same folder as the component when
   practical.
 
-## 4. Useful Commands Recap
+## 4. Truth Hygiene (Global Rule)
+
+If you state a factual claim that could vary by time, jurisdiction, vendor, or
+standard version:
+
+* Either cite a source (if search is enabled).
+* Or mark it as `Assumption` / `Needs verification`.
+* Never fabricate client results, benchmark numbers, legal requirements, or
+  platform limits.
+
+## 5. Useful Commands Recap
 
 | Command            | Purpose                                            |
 | ------------------ | -------------------------------------------------- |

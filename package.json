@@ -6,7 +6,12 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit --incremental false",
+    "hooks:install": "bash scripts/setup-hooks.sh",
+    "prepush:check": "bash scripts/pre-push-gate.sh --local",
+    "gate:verify": "bash scripts/verify-gates.sh",
+    "prepare": "npm run hooks:install"
   },
   "dependencies": {
     "@tailwindcss/postcss": "4.1.11",

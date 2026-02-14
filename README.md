@@ -47,3 +47,55 @@ that explains the project’s goals in a simple way, and featuring some examples
    pnpm run dev
    ```
 3. Open your browser and go to http://localhost:3000
+
+## Pre-push sanitization and quality gates
+
+This repository uses a Git `pre-push` hook to reduce accidental secret leaks and enforce baseline quality checks before code reaches GitHub.
+
+### Install hooks
+
+```bash
+npm run hooks:install
+```
+
+`npm install` also installs hooks automatically via the `prepare` script.
+
+### What the gate blocks
+
+- Sensitive file paths in pushed commits (for example `.env`, `.env.local`, `.envrc`, private keys, and key-store files).
+- Added lines that look like real credentials (for example cloud keys, GitHub tokens, Slack tokens, private key material, JWT-like credentials, and credential-bearing URLs).
+
+`*.env.example`, `*.env.sample`, and `*.env.template` are allowed as templates.
+
+### Quality checks run before push
+
+- `npm run typecheck` (required)
+- `npm run lint` (when `lint` is configured and compatible with the installed Next.js version)
+- `npm run test` (only when a `test` script exists)
+
+### Verify the full gate setup
+
+```bash
+npm run gate:verify
+```
+
+### Enforce gate in GitHub (recommended)
+
+This repo includes `.github/workflows/pre-push-gate-ci.yml`, which runs the same gate in GitHub Actions on `pull_request`, `push`, and merge-queue checks.
+
+After pushing this workflow, configure branch protection (or rulesets) for your protected branch (for example `main`) and mark `pre-push-gate` as a **required status check**.
+
+For the security policy, incident response runbooks, and roadmap, see:
+
+- `SECURITY.md`
+- `security/README.md`
+
+### Run the gate manually (without pushing)
+
+```bash
+npm run prepush:check
+```
+
+### Handling intentional false positives
+
+If a line is an intentional non-secret example, add `sanitization:allow` on that same line to bypass the content-pattern gate for that line only.

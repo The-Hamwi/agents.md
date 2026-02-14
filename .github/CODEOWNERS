@@ -1,0 +1,11 @@
+# Update these owners to users/teams with write access to this repository.
+
+# Default ownership for all paths.
+* @The-Hamwi
+
+# Security-critical controls and policies.
+/.github/CODEOWNERS @The-Hamwi
+/.github/workflows/* @The-Hamwi
+/scripts/pre-push-gate.sh @The-Hamwi
+/SECURITY.md @The-Hamwi
+/security/** @The-Hamwi
